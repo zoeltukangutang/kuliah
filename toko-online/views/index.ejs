@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daftar Produk</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <h1>Daftar Produk</h1>
+
+  <!-- Kontainer untuk produk -->
+  <div class="product-container">
+    <% if (produk.length > 0) { %>
+      <% produk.forEach(item => { %>
+        <div class="product-item">
+          <img src="/images/<%= item.foto %>" alt="<%= item.nama %>" class="product-image">
+          <strong><%= item.nama %></strong> 
+          <p>Harga: Rp. <%= item.harga.toLocaleString('id-ID') %></p>
+          <form action="/add-to-cart" method="POST" style="display: inline;">
+            <input type="hidden" name="produkId" value="<%= item.id %>">
+            <input type="number" name="jumlah" value="1" min="1" max="<%= item.stok %>">
+            <button type="submit">Tambah ke Keranjang</button>
+          </form>
+        </div>
+      <% }) %>
+    <% } else { %>
+      <p>Tidak ada produk yang tersedia saat ini.</p>
+    <% } %>
+  </div>
+
+  <a href="/keranjang">Lihat Keranjang Belanja</a>
+</body>
+</html>
